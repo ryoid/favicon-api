@@ -1,6 +1,8 @@
 # favicon api
 
-Get favicon from a website using Cloudflare Workers. Uses Google's favicon service to resolve the favicon, tries to use actual favicon from the website instead of Google's image version.
+Get favicon from a website using Cloudflare Workers.
+
+Uses Google's favicon service to resolve the favicon, but uses the actual favicon from the website instead of Google's image version.
 
 ```bash
 https://favicon.undash.co?url=${URL}
@@ -18,14 +20,19 @@ https://favicon.undash.co?url=https://github.com
 
 ### Specify custom fallback
 
-You can pass a fallback url to use in case the favicon is not found to o verride the default fallback.
-
-[<img src="https://favicon.undash.co/?url=DOESNOTEXIST" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST)
-[<img src="https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
+You can pass a fallback url to use instead of the default.
 
 ```bash
 https://favicon.undash.co?url=${URL}&fallback=${FALLBACK_URL}
 ```
+
+Default
+
+[<img src="https://favicon.undash.co/?url=DOESNOTEXIST" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST)
+
+Custom fallback `google.com/favicon.ico`
+
+[<img src="https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
 
 ### Identify fallback favicon
 
