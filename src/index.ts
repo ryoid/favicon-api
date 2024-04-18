@@ -1,8 +1,8 @@
 const FALLBACK_FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m18 17-2-1h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2 8 8 0 0 1 3 12m-7 3a8 8 0 0 1-7-10l5 5v1a2 2 0 0 0 2 2m1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>`;
 
-function defaultFavicon(status: number) {
+function defaultFavicon() {
 	return new Response(FALLBACK_FAVICON, {
-		status,
+		status: 200,
 		headers: {
 			'Content-Type': 'image/svg+xml',
 			'Cache-Control': 'public, max-age=604800, s-maxage=604800',
@@ -14,13 +14,13 @@ function defaultFavicon(status: number) {
 async function fallback(url?: string | null) {
 	try {
 		if (!url) {
-			return defaultFavicon(400);
+			return defaultFavicon();
 		}
 
 		// Fetch the favicon content
 		let res = await fetch(url);
 		if (!res.ok) {
-			return defaultFavicon(404);
+			return defaultFavicon();
 		}
 
 		// Modify response
@@ -30,7 +30,7 @@ async function fallback(url?: string | null) {
 		res.headers.set('x-favicon-fallback', '1');
 		return res;
 	} catch (e) {
-		return defaultFavicon(500);
+		return defaultFavicon();
 	}
 }
 
