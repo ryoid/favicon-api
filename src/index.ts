@@ -1,4 +1,4 @@
-const FALLBACK_FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m20.893 13.393l-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107a.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025a1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332l-.091.091a2.25 2.25 0 0 1-1.591.659h-.18a.94.94 0 0 0-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525"/></svg>`;
+const FALLBACK_FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m18 17-2-1h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2 8 8 0 0 1 3 12m-7 3a8 8 0 0 1-7-10l5 5v1a2 2 0 0 0 2 2m1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>`;
 
 function defaultFavicon(status: number) {
 	return new Response(FALLBACK_FAVICON, {
@@ -6,46 +6,71 @@ function defaultFavicon(status: number) {
 		headers: {
 			'Content-Type': 'image/svg+xml',
 			'Cache-Control': 'public, max-age=604800, s-maxage=604800',
-			'favicon-fallback': '1',
+			'x-favicon-fallback': '1',
 		},
 	});
 }
 
+async function fallback(url?: string | null) {
+	try {
+		if (!url) {
+			return defaultFavicon(400);
+		}
+
+		// Fetch the favicon content
+		let res = await fetch(url);
+		if (!res.ok) {
+			return defaultFavicon(404);
+		}
+
+		// Modify response
+		res = new Response(res.body, res);
+		res.headers.set('Cache-Control', 'public, max-age=604800, s-maxage=604800');
+		res.headers.set('content-location', url);
+		return res;
+	} catch (e) {
+		return defaultFavicon(500);
+	}
+}
+
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		try {
-			const reqUrl = new URL(request.url);
-			let url = reqUrl.searchParams.get('url');
-			if (!url || url === '') {
-				return defaultFavicon(400);
-			}
-			if (!/^https?:\/\//i.test(url)) {
-				url = `http://${url}`;
-			}
+		const reqUrl = new URL(request.url);
+		let url = reqUrl.searchParams.get('url');
+		let fallbackUrl = reqUrl.searchParams.get('fallback');
+		if (!url || url === '') {
+			return fallback(fallbackUrl);
+		}
+		if (!/^https?:\/\//i.test(url)) {
+			url = `http://${url}`;
+		}
 
-			// Query Google's favicon service for the favicon URL
-			const faviconUrl = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=16`;
+		// Query Google's favicon service for the favicon URL
+		const faviconUrl = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=16`;
+
+		try {
 			const head = await fetch(faviconUrl, {
 				method: 'HEAD',
 			});
 			const contentUrl = head.headers.get('content-location');
 			if (!contentUrl) {
-				return defaultFavicon(404);
+				return fallback(fallbackUrl);
 			}
 
 			// Fetch the favicon content
 			let res = await fetch(contentUrl);
 			if (!res.ok) {
-				return defaultFavicon(404);
+				return fallback(fallbackUrl);
 			}
 
 			// Modify response
 			res = new Response(res.body, res);
 			res.headers.set('Cache-Control', 'public, max-age=604800, s-maxage=604800');
+			res.headers.set('content-location', contentUrl);
 
 			return res;
 		} catch (e) {
-			return defaultFavicon(500);
+			return fallback(fallbackUrl);
 		}
 	},
 };
