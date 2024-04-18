@@ -3,16 +3,16 @@
 Get favicon from a website using Cloudflare Workers. Uses Google's favicon service to resolve the favicon, tries to use actual favicon from the website instead of Google's image version.
 
 ```bash
-https://favicon-api.flop.workers.dev?url=${URL}
+https://favicon.undash.co?url=${URL}
 
 # Example
-https://favicon-api.flop.workers.dev?url=google.com
-https://favicon-api.flop.workers.dev?url=https://github.com
+https://favicon.undash.co?url=google.com
+https://favicon.undash.co?url=https://github.com
 ```
 
-[<img src="https://favicon-api.flop.workers.dev?url=google.com" width="32" height="32">](https://favicon-api.flop.workers.dev?url=google.com)
-[<img src="https://favicon-api.flop.workers.dev?url=https://github.com" width="32" height="32">](https://favicon-api.flop.workers.dev?url=https://github.com)
-[<img src="https://favicon-api.flop.workers.dev?url=cloudflare.com" width="32" height="32">](https://favicon-api.flop.workers.dev?url=cloudflare.com)
+[<img src="https://favicon.undash.co?url=google.com" width="32" height="32">](https://favicon.undash.co?url=google.com)
+[<img src="https://favicon.undash.co?url=https://github.com" width="32" height="32">](https://favicon.undash.co?url=https://github.com)
+[<img src="https://favicon.undash.co?url=cloudflare.com" width="32" height="32">](https://favicon.undash.co?url=cloudflare.com)
 
 ## Features
 
@@ -20,11 +20,11 @@ https://favicon-api.flop.workers.dev?url=https://github.com
 
 You can pass a fallback url to use in case the favicon is not found to o verride the default fallback.
 
-[<img src="https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST)
-[<img src="https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
+[<img src="https://favicon.undash.co/?url=DOESNOTEXIST" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST)
+[<img src="https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
 
 ```bash
-https://favicon-api.flop.workers.dev?url=${URL}&fallback=${FALLBACK_URL}
+https://favicon.undash.co?url=${URL}&fallback=${FALLBACK_URL}
 ```
 
 ### Identify fallback favicon
