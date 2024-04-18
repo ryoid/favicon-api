@@ -27,6 +27,7 @@ async function fallback(url?: string | null) {
 		res = new Response(res.body, res);
 		res.headers.set('Cache-Control', 'public, max-age=604800, s-maxage=604800');
 		res.headers.set('content-location', url);
+		res.headers.set('x-favicon-fallback', '1');
 		return res;
 	} catch (e) {
 		return defaultFavicon(500);

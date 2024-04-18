@@ -20,8 +20,8 @@ https://favicon-api.flop.workers.dev?url=https://github.com
 
 You can pass a fallback url to use in case the favicon is not found to o verride the default fallback.
 
-[<img src="https://favicon-api.flop.workers.dev/?url=doesnotexist" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=doesnotexist)
-[<img src="https://favicon-api.flop.workers.dev/?url=doesnotexist&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=doesnotexist&fallback=https://www.google.com/favicon.ico)
+[<img src="https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST)
+[<img src="https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon-api.flop.workers.dev/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
 
 ```bash
 https://favicon-api.flop.workers.dev?url=${URL}&fallback=${FALLBACK_URL}
