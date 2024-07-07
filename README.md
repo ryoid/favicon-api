@@ -5,16 +5,16 @@ Get favicon from a website using Cloudflare Workers.
 Uses Google's favicon service to resolve the favicon, but uses the actual favicon from the website instead of Google's image version.
 
 ```bash
-https://favicon.undash.co?url=${URL}
+https://api.favicon.ryanjc.com?url=${URL}
 
 # Example
-https://favicon.undash.co?url=google.com
-https://favicon.undash.co?url=https://github.com
+https://api.favicon.ryanjc.com?url=google.com
+https://api.favicon.ryanjc.com?url=https://github.com
 ```
 
-[<img src="https://favicon.undash.co?url=google.com" width="32" height="32">](https://favicon.undash.co?url=google.com)
-[<img src="https://favicon.undash.co?url=https://github.com" width="32" height="32">](https://favicon.undash.co?url=https://github.com)
-[<img src="https://favicon.undash.co?url=cloudflare.com" width="32" height="32">](https://favicon.undash.co?url=cloudflare.com)
+[<img src="https://api.favicon.ryanjc.com?url=google.com" width="32" height="32">](https://api.favicon.ryanjc.com?url=google.com)
+[<img src="https://api.favicon.ryanjc.com?url=https://github.com" width="32" height="32">](https://api.favicon.ryanjc.com?url=https://github.com)
+[<img src="https://api.favicon.ryanjc.com?url=cloudflare.com" width="32" height="32">](https://api.favicon.ryanjc.com?url=cloudflare.com)
 
 ## Features
 
@@ -23,16 +23,16 @@ https://favicon.undash.co?url=https://github.com
 You can pass a fallback url to use instead of the default.
 
 ```bash
-https://favicon.undash.co?url=${URL}&fallback=${FALLBACK_URL}
+https://api.favicon.ryanjc.com?url=${URL}&fallback=${FALLBACK_URL}
 ```
 
 Default
 
-[<img src="https://favicon.undash.co/?url=DOESNOTEXIST" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST)
+[<img src="https://api.favicon.ryanjc.com/?url=DOESNOTEXIST" width="32" height="32">](https://api.favicon.ryanjc.com/?url=DOESNOTEXIST)
 
 Custom fallback `google.com/favicon.ico`
 
-[<img src="https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://favicon.undash.co/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
+[<img src="https://api.favicon.ryanjc.com/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico" width="32" height="32">](https://api.favicon.ryanjc.com/?url=DOESNOTEXIST&fallback=https://www.google.com/favicon.ico)
 
 ### Identify fallback favicon
 

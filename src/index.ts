@@ -38,6 +38,8 @@ async function fallback(url?: string | null) {
 	}
 }
 
+const SIZE = 128;
+
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		const reqUrl = new URL(request.url);
@@ -51,7 +53,7 @@ export default {
 		}
 
 		// Query Google's favicon service for the favicon URL
-		const faviconUrl = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=16`;
+		const faviconUrl = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=${SIZE}`;
 
 		try {
 			const head = await fetch(faviconUrl, {
