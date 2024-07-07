@@ -1,6 +1,6 @@
 # favicon api
 
-Get favicon from a website using Cloudflare Workers.
+Retrieve a website's favicon using Cloudflare Workers.
 
 Uses Google's favicon service to resolve the favicon, but uses the actual favicon from the website instead of Google's image version.
 
@@ -18,7 +18,7 @@ https://api.favicon.ryanjc.com?url=https://github.com
 
 ## Features
 
-### Specify custom fallback
+### Custom fallback icon
 
 You can pass a fallback url to use instead of the default.
 
